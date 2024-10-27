@@ -1,0 +1,46 @@
+@baseurl = http://127.0.0.1:8000/api/v1
+
+get {{baseurl}}/courses/
+Content-Type: application/json
+
+###
+
+post {{baseurl}}/courses/
+Content-Type: application/json
+
+{
+    "name": "javacourse",
+    "students": [
+      {
+        "id": 4
+      },
+      {
+        "id": 5
+      }
+    ]
+}
+
+###
+
+patch {{baseurl}}/courses/20/
+Content-Type: application/json
+
+{
+    "name": "new python",
+    "students": [
+      {
+        "id": 4
+      },
+      {
+        "id": 5
+      }
+    ]
+}
+
+###
+delete {{baseurl}}/courses/23/
+Content-Type: application/json
+
+###
+get {{baseurl}}/courses/23/
+Content-Type: application/json
