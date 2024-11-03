@@ -44,3 +44,27 @@ Content-Type: application/json
 ###
 get {{baseurl}}/courses/23/
 Content-Type: application/json
+
+
+###
+
+post {{baseurl}}/courses/
+Content-Type: application/json
+
+{
+    "name": "Rust",
+    "students": [7]
+}
+
+###
+
+post {{baseurl}}/student/
+Content-Type: application/json
+
+{
+    "name": "Maximus"
+}
+
+###
+get {{baseurl}}/student/
+Content-Type: application/json

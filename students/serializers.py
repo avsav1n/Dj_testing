@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db.models import Count
+from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -22,6 +23,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['id', 'name', 'students']
 
+    @transaction.atomic
     def create(self, validated_data: dict):
         students = validated_data.pop('students')
         course = super().create(validated_data)
@@ -31,6 +33,7 @@ class CourseSerializer(serializers.ModelSerializer):
         
         return course
     
+    @transaction.atomic
     def update(self, instance, validated_data):
         students = validated_data.pop('students')
         super().update(instance, validated_data)
