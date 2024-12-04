@@ -42,5 +42,10 @@ jobs:
       - name: tests
         run: pytest
         env:
+          ENGINE: django.db.backends.postgresql
+          NAME: djangotesting
+          HOST: 127.0.0.1
+          PORT: 5432
+          USER: postgres
           PASSWORD: ${{ env.DB_PASS }}
         
