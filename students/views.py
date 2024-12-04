@@ -17,7 +17,7 @@ def redirect_view(request):
 
 
 def deploy_view(request):
-    with open(os.path.join(settings.BASE_DIR, 'deploy.sh'), encoding='utf-8') as f:
+    with open(os.path.join(settings.BASE_DIR, 'deploy.sh'), encoding='utf-8') as f:  # noqa: E501
         data = f.read()
     return HttpResponse(f'<pre> {data} </pre>')
 
