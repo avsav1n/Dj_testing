@@ -12,8 +12,10 @@ from students.serializers import CourseSerializer
 def redirect_view(request):
     return redirect('admin/')
 
+
 def testing_view(request):
     return HttpResponse('HelloWorld!')
+
 
 class CoursesViewSet(ModelViewSet):  # noqa: R0901
     queryset = Course.objects.all()
