@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,8 +16,10 @@ def redirect_view(request):
     return redirect('admin/')
 
 
-def testing_view(request):
-    return HttpResponse('HelloWorld!')
+def deploy_view(request):
+    with open(os.path.join(settings.BASE_DIR, 'deploy.sh'), encoding='utf-8') as f:
+        data = f.read()
+    return HttpResponse(f'<pre> {data} </pre>')
 
 
 class CoursesViewSet(ModelViewSet):  # noqa: R0901
