@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.db.models import Count
 from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -28,29 +27,29 @@ class CourseSerializer(serializers.ModelSerializer):
         students = validated_data.pop('students')
         course = super().create(validated_data)
 
-        students = [Student.objects.get(pk=student['id']) for student in students]
+        students = [Student.objects.get(pk=student['id']) for student in students]  # noqa: E501
         course.students.add(*students)
-        
+
         return course
-    
+
     @transaction.atomic
     def update(self, instance, validated_data):
         students = validated_data.pop('students')
         super().update(instance, validated_data)
 
-        students = [Student.objects.get(pk=student['id']) for student in students]
+        students = [Student.objects.get(pk=student['id']) for student in students]  # noqa: E501
         instance.students.add(*students)
-        
+
         return instance
 
     def validate(self, attrs: dict):
-        error_message = (f'На одном курсе не может быть больше {settings.MAX_STUDENTS_PER_COURSE}'
+        error_message = (f'На одном курсе не может быть больше {settings.MAX_STUDENTS_PER_COURSE}'  # noqa: E501
                          ' студентов')
         students_quantity = len(attrs['students'])
-        if (self.context['request'].method == 'POST' and 
-            students_quantity > settings.MAX_STUDENTS_PER_COURSE):
-                raise ValidationError(error_message)
-        elif (self.context['request'].method == 'PATCH' and
-              self.instance.students.count() + students_quantity > settings.MAX_STUDENTS_PER_COURSE):
-                raise ValidationError(error_message)
+        if (self.context['request'].method == 'POST' and
+                students_quantity > settings.MAX_STUDENTS_PER_COURSE):
+            raise ValidationError(error_message)
+        if (self.context['request'].method == 'PATCH' and
+                self.instance.students.count() + students_quantity > settings.MAX_STUDENTS_PER_COURSE):  # noqa: E501
+            raise ValidationError(error_message)
         return attrs
