@@ -5,7 +5,7 @@ on:
     branches: [ 'main' ]
 
 jobs:
-  testing:
+  integration:
     runs-on: ubuntu-22.04
     env: 
       DB_PASS: ${{ secrets.PSQLPASS }}
@@ -44,6 +44,10 @@ jobs:
         env:
           PSQLPASS: ${{ env.DB_PASS }}
 
+  deployment:
+    runs-on: ubuntu-22.04
+    needs: integration
+    steps:
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
