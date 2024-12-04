@@ -11,7 +11,7 @@ jobs:
       DB_PASS: ${{ secrets.PSQLPASS }}
     services:
       postgres_main:
-        image: postgres:12
+        image: postgres:16
         env:
           POSTGRES_DB: djangotesting
           POSTGRES_USER: postgres
