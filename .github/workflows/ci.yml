@@ -30,8 +30,8 @@ jobs:
 
       - name: setup python
         uses: actions/setup-python@v5
-          with: 
-            python-version: '3.12'
+        with: 
+          python-version: '3.12'
 
       - name: requirements setup
         run: pip install -r requirements-dev.txt
